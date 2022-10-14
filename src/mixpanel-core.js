@@ -51,6 +51,7 @@ var init_type;       // MODULE or SNIPPET loader
 var mixpanel_master; // main mixpanel instance / object
 var INIT_MODULE  = 0;
 var INIT_SNIPPET = 1;
+var SCRIPT_TYPE = 'text/javascript';
 
 var IDENTITY_FUNC = function(x) {return x;};
 var NOOP_FUNC = function() {};
@@ -213,6 +214,10 @@ MixpanelLib.prototype.init = function (token, config, name) {
     if (name === PRIMARY_INSTANCE_NAME) {
         console.error('You must initialize the main mixpanel object right after you include the Mixpanel js snippet');
         return;
+    }
+
+    if(config.type) {
+        SCRIPT_TYPE = config.type;
     }
 
     var instance = create_mplib(token, config, name);
@@ -527,7 +532,7 @@ MixpanelLib.prototype._send_request = function(url, data, options, callback) {
         }
     } else {
         var script = document.createElement('script');
-        script.type = 'text/javascript';
+        script.type = SCRIPT_TYPE;
         script.async = true;
         script.defer = true;
         script.src = url;
