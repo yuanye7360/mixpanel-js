@@ -6,6 +6,9 @@
   "directories": {
     "test": "tests"
   },
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "./build.sh",
     "build-dist": "DIST=1 ./build.sh",
